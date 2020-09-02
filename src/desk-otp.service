@@ -1,0 +1,14 @@
+[Unit]
+Description=Desk One Time Password
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+Environment="RESOURCE_PATH_PREFIX=/usr/local/share/desk-otp/"
+ExecStart=/usr/local/bin/desk-otp
+User=deskotp
+Group=deskotp
+
+[Install]
+WantedBy=multi-user.target
