@@ -49,8 +49,8 @@ void draw_clock() {
 	int text_color = fbmagic_color_value(ctx, 0x20, 0x20, 0x20);
 	gettimeofday(&tv, 0);
 
-	unsigned long time_ms = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	float time_left = 1.f - (float)(time_ms % (DURATION_LEN * 1000)) / (DURATION_LEN * 1000);
+	unsigned long long time_ms = ((unsigned long long)(tv.tv_sec) * 1000) + ((unsigned long long)(tv.tv_usec) / 1000);
+	double time_left = ((double)(time_ms % (DURATION_LEN * 1000))) / (DURATION_LEN * 1000);
 
 	sprintf(content, "%ds", (int)(time_left * DURATION_LEN));
 
