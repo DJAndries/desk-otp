@@ -75,6 +75,7 @@ int init_input(char* current_seq, size_t* seq_len) {
 
 int input_get_seq(char* current_seq, size_t* seq_len) {
 	size_t i;
+	long time_diff;
 	char numstr[16];
 	struct gpiod_line_event ev;
 	struct timespec wait_timeout = { 0, 800000 };
@@ -86,7 +87,8 @@ int input_get_seq(char* current_seq, size_t* seq_len) {
 
 		sprintf(numstr, "%u", i + 1);
 
-		if (timespec_sub_ms(&ev.ts, &last_event_time) < BOUNCE_TIME_MS) {
+		time_diff = timespec_sub_ms(&ev.ts, &last_event_time);
+		if (time_diff >= 0 && time_diff < BOUNCE_TIME_MS) {
 			dlog(LOG_DEBUG, "Possible button bounce index %u, ignoring", i + 1);
 			continue;
 		}
